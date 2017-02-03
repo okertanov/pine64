@@ -16,6 +16,9 @@ Ideas
 Links
 -----
 [https://www.pine64.org/](https://www.pine64.org/)  
+[http://wiki.pine64.org/index.php/Pine_A64_Software_Release](http://wiki.pine64.org/index.php/Pine_A64_Software_Release)  
+[http://linux-sunxi.org/A64](http://linux-sunxi.org/A64)  
+
 [https://volumio.org/](https://volumio.org/)  
 [https://www.plex.tv/](https://www.plex.tv/)  
 [https://www.hackster.io/](https://www.hackster.io/)  
