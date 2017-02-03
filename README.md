@@ -8,6 +8,7 @@ Ideas
 -----
  - Buddha machine
  - Headless Musicbox/Streaming server
+ - Radio and remote control
  - Auto Video player
  - Kodi Video player & Torrents
  - .Net core or Node app server
