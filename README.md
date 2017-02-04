@@ -28,9 +28,16 @@ HW Specs
 Imaging
 -------
 
+    scp okertanov@debora.local:/home/okertanov/projects/pine64.git/pine64-disk-1Gb.img ./
+    md5 pine64-disk-1Gb.img
     sudo diskutil list
-    diskutil unmountDisk /dev/disk2
-    sudo dd if=pine64-image-name.img of=/dev/disk2 bs=1m
+    sudo diskutil unmountDisk /dev/disk2
+    sudo dd if=pine64-disk-1Gb.img of=/dev/rdisk2 bs=1m
+
+Host System setup
+-----------------
+
+    TBD
 
 Ideas
 -----
@@ -42,6 +49,11 @@ Ideas
  - Kodi Video player & Torrents
  - .Net core or Node app server
 
+Credits
+-------
+
+    TBD
+
 Links
 -----
 [https://www.pine64.org/](https://www.pine64.org/)  
@@ -50,8 +62,11 @@ Links
 [https://linux-sunxi.org/A64](https://linux-sunxi.org/A64)  
 [https://linux-sunxi.org/Pine64](https://linux-sunxi.org/Pine64)  
 [https://linux-sunxi.org/Sunxi-tools](https://linux-sunxi.org/Sunxi-tools)  
+[https://linux-sunxi.org/Bootable_SD_card](https://linux-sunxi.org/Bootable_SD_card)  
 
 [https://github.com/apritzel/pine64](https://github.com/apritzel/pine64)  
+[https://github.com/apritzel/pine64/blob/master/Booting.md](https://github.com/apritzel/pine64/blob/master/Booting.md)  
+
 [https://github.com/longsleep/linux-pine64](https://github.com/longsleep/linux-pine64)  
 [https://github.com/longsleep/build-pine64-image](https://github.com/longsleep/build-pine64-image)  
 [https://www.stdin.xyz/downloads/people/longsleep/tmp/pine64-images/](https://www.stdin.xyz/downloads/people/longsleep/tmp/pine64-images/)  
