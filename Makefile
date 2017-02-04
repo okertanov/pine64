@@ -83,7 +83,7 @@ clean:
 
 define post-config-rootfs =
 -@echo "Post configuration..."
-sudo du -sh tmp/rmount
 sudo cp -r rootfs/* tmp/rmount/
+sudo du -sh tmp/rmount
 endef
 
