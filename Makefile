@@ -32,7 +32,7 @@ ADDITIONAL_DEBS1:="netbase,net-tools,ifupdown,iproute,openssh-server,ntp,ntpdate
 ADDITIONAL_DEBS2:="avahi-daemon avahi-discover,libnss-mdns"
 ADDITIONAL_DEBS:=$(ADDITIONAL_DEBS1),$(ADDITIONAL_DEBS2)
 
-DISK_IMAGE_SIZE_GB:=1
+DISK_IMAGE_SIZE_GB:=2
 DISK_IMAGE_NAME:=pine64-disk-$(DISK_IMAGE_SIZE_GB)Gb.img
 
 all: tmp disk-image
