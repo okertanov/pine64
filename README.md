@@ -34,6 +34,12 @@ Imaging
     sudo diskutil unmountDisk /dev/disk2
     sudo dd if=pine64-disk-1Gb.img of=/dev/rdisk2 bs=1m
 
+Debug
+-----
+
+    screen -t 'ttyUSB0 115200 8n1' /dev/cu.SLAB_USBtoUART 115200,-ixoff,-ixon
+
+
 Host System setup
 -----------------
 
