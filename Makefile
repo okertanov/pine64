@@ -32,6 +32,7 @@ ADDITIONAL_DEBS1:="netbase,net-tools,ifupdown,iproute,openssh-server,ntp,ntpdate
 ADDITIONAL_DEBS2:="avahi-daemon avahi-discover,libnss-mdns"
 ADDITIONAL_DEBS:=$(ADDITIONAL_DEBS1),$(ADDITIONAL_DEBS2)
 
+DEB_RELEASE:=testing
 DISK_IMAGE_SIZE_GB:=2
 DISK_IMAGE_NAME:=pine64-disk-$(DISK_IMAGE_SIZE_GB)Gb.img
 
@@ -48,7 +49,7 @@ disk-image: $(DISK_IMAGE_NAME)
 	printf "20M,64M,c\n65M,,L" | sudo sfdisk $@
 	sudo losetup --partscan --show --find $@
 	sudo mkfs.vfat /dev/loop0p1 -n "PINEBOOT"
-	sudo mkfs.ext4 -m0 -L"pineroot" /dev/loop0p2
+	sudo mkfs.ext3 -m0 -L"pineroot" /dev/loop0p2
 	sudo fsck /dev/loop0p2
 	sync
 	sudo mount /dev/loop0p1 tmp/bmount
@@ -56,7 +57,7 @@ disk-image: $(DISK_IMAGE_NAME)
 	sudo cp -r vendor/kernel/linux-pine64-new/* tmp/bmount
 	ls -la tmp/bmount
 	sync
-	sudo debootstrap --arch=$(ARM_ARCH) --foreign --include=$(ADDITIONAL_DEBS) testing tmp/rmount
+	sudo debootstrap --arch=$(ARM_ARCH) --foreign --include=$(ADDITIONAL_DEBS) $(DEB_RELEASE) tmp/rmount
 	sudo cp /usr/bin/qemu-aarch64-static tmp/rmount/usr/bin/
 	sudo chroot tmp/rmount /usr/bin/qemu-aarch64-static /bin/sh -i /debootstrap/debootstrap --second-stage
 	sync
@@ -64,6 +65,8 @@ disk-image: $(DISK_IMAGE_NAME)
 	sync
 	sudo umount tmp/bmount
 	sudo umount tmp/rmount
+	sudo fsck /dev/loop0p2 || true
+	-@sudo losetup -D || true
 
 tmp:
 	mkdir -p tmp/bmount
