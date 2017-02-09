@@ -49,7 +49,6 @@ disk-image: $(DISK_IMAGE_NAME)
 	sudo losetup --partscan --show --find $@
 	sudo mkfs.vfat /dev/loop0p1 -n "PINEBOOT"
 	sudo mkfs.ext4 -m0 -L"pineroot" /dev/loop0p2
-	sudo tune2fs -o journal_data_writeback /dev/loop0p2
 	sudo fsck /dev/loop0p2
 	sync
 	sudo mount /dev/loop0p1 tmp/bmount
