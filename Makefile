@@ -87,5 +87,7 @@ define post-config-rootfs =
 -@echo "Post configuration..."
 sudo cp -r rootfs/* tmp/rmount/
 sudo du -sh tmp/rmount
+sudo chroot tmp/rmount /usr/bin/qemu-aarch64-static /bin/sh -i useradd pine -s /bin/bash -m -g cone -G sudo
+sudo chroot tmp/rmount /usr/bin/qemu-aarch64-static /bin/sh -i echo "pine:pine64" | sudo chpasswd
 endef
 
