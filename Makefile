@@ -28,13 +28,18 @@
 ##
 
 ARM_ARCH:=arm64
-ADDITIONAL_DEBS1:="netbase,net-tools,ifupdown,iproute,openssh-server,ntp,ntpdate,vim,less,sudo,locales,tasksel,ca-certificates"
-ADDITIONAL_DEBS2:="avahi-daemon avahi-discover,libnss-mdns"
-ADDITIONAL_DEBS:=$(ADDITIONAL_DEBS1),$(ADDITIONAL_DEBS2)
+ADDITIONAL_DEBS:="netbase,net-tools,ifupdown,iproute,openssh-server,ntp,ntpdate,\
+vim,less,sudo,locales,tasksel,ca-certificates,adduser,passwd,\
+avahi-daemon,avahi-discover,libnss-mdns,wpasupplicant,htop,\
+build-essential,autoconf,automake,libtool,debhelper,dh-autoreconf,fakeroot,pkg-config,\
+xutils-dev"
 
-DEB_RELEASE:=testing
+DISTRO:=testing
 DISK_IMAGE_SIZE_GB:=2
 DISK_IMAGE_NAME:=pine64-disk-$(DISK_IMAGE_SIZE_GB)Gb.img
+
+USERNAME:=pine
+PASSWD:=pine
 
 all: tmp disk-image
 
@@ -57,7 +62,7 @@ disk-image: $(DISK_IMAGE_NAME)
 	sudo cp -r vendor/kernel/linux-pine64-new/* tmp/bmount
 	ls -la tmp/bmount
 	sync
-	sudo debootstrap --arch=$(ARM_ARCH) --foreign --include=$(ADDITIONAL_DEBS) $(DEB_RELEASE) tmp/rmount
+	sudo debootstrap --arch=$(ARM_ARCH) --foreign --include=$(ADDITIONAL_DEBS) $(DISTRO) tmp/rmount
 	sudo cp /usr/bin/qemu-aarch64-static tmp/rmount/usr/bin/
 	sudo chroot tmp/rmount /usr/bin/qemu-aarch64-static /bin/sh -i /debootstrap/debootstrap --second-stage
 	sync
@@ -86,8 +91,12 @@ clean:
 define post-config-rootfs =
 -@echo "Post configuration..."
 sudo cp -r rootfs/* tmp/rmount/
+sudo tar jxf tmp/rmount/lib/modules.tbz2 -C tmp/rmount/lib/
+sudo rm -f tmp/rmount/lib/modules.tbz2
 sudo du -sh tmp/rmount
-sudo chroot tmp/rmount /usr/bin/qemu-aarch64-static /bin/sh -i useradd pine -s /bin/bash -m -g cone -G sudo
-sudo chroot tmp/rmount /usr/bin/qemu-aarch64-static /bin/sh -i echo "pine:pine64" | sudo chpasswd
+sudo chroot tmp/rmount /usr/bin/qemu-aarch64-static /bin/sh -c "/usr/sbin/groupadd $(USERNAME)"
+sudo chroot tmp/rmount /usr/bin/qemu-aarch64-static /bin/sh -c "/usr/sbin/useradd $(USERNAME) -s /bin/bash -m -g  $(USERNAME) -G sudo"
+sudo chroot tmp/rmount /usr/bin/qemu-aarch64-static /bin/sh -c "/bin/echo "$(USERNAME):$(PASSWD)" | /usr/sbin/chpasswd"
+sudo chroot tmp/rmount /usr/bin/qemu-aarch64-static /bin/sh -c "/usr/bin/passwd -l root"
 endef
 
