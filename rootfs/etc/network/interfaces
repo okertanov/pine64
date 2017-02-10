@@ -2,3 +2,5 @@
 # Include files from /etc/network/interfaces.d:
 source-directory /etc/network/interfaces.d
 
+# Disable wlan1 by default (8723bs has two intefaces)
+iface wlan1 inet manual

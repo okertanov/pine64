@@ -24,6 +24,13 @@
 ##
 
 ##
+## Graphics:
+##    https://www.pine64.pro/desktop-environment-on-ubuntu/
+##    https://github.com/ssvb/xf86-video-fbturbo/wiki/Installation
+##    http://linux-sunxi.org/Mali_binary_driver
+##
+
+##
 ## ARM hosts: pine, cone, nootka
 ##
 
@@ -31,8 +38,7 @@ ARM_ARCH:=arm64
 ADDITIONAL_DEBS:="netbase,net-tools,ifupdown,iproute,openssh-server,ntp,ntpdate,\
 vim,less,sudo,locales,tasksel,ca-certificates,adduser,passwd,\
 avahi-daemon,avahi-discover,libnss-mdns,wpasupplicant,htop,\
-build-essential,autoconf,automake,libtool,debhelper,dh-autoreconf,fakeroot,pkg-config,\
-xutils-dev"
+build-essential,autoconf,automake,libtool,debhelper,dh-autoreconf,fakeroot,pkg-config"
 
 DISTRO:=testing
 DISK_IMAGE_SIZE_GB:=2
@@ -91,13 +97,19 @@ clean:
 
 define post-config-rootfs =
 -@echo "Post configuration..."
+
 sudo cp -r rootfs/* tmp/rmount/
 sudo tar jxf tmp/rmount/lib/modules.tbz2 -C tmp/rmount/lib/
 sudo rm -f tmp/rmount/lib/modules.tbz2
-sudo du -sh tmp/rmount
+
 sudo chroot tmp/rmount /usr/bin/qemu-aarch64-static /bin/sh -c "/usr/sbin/groupadd $(USERNAME)"
-sudo chroot tmp/rmount /usr/bin/qemu-aarch64-static /bin/sh -c "/usr/sbin/useradd $(USERNAME) -s /bin/bash -m -g  $(USERNAME) -G sudo"
+sudo chroot tmp/rmount /usr/bin/qemu-aarch64-static /bin/sh -c "/usr/sbin/useradd $(USERNAME) -s /bin/bash -m -g $(USERNAME) -G sudo,video"
 sudo chroot tmp/rmount /usr/bin/qemu-aarch64-static /bin/sh -c "/bin/echo "$(USERNAME):$(PASSWD)" | /usr/sbin/chpasswd"
 sudo chroot tmp/rmount /usr/bin/qemu-aarch64-static /bin/sh -c "/usr/bin/passwd -l root"
+
+sudo cp -r core/ tmp/rmount/tmp/
+sudo chroot tmp/rmount /usr/bin/qemu-aarch64-static /bin/sh -i /tmp/core/second-phase.sh
+
+sudo du -sh tmp/rmount
 endef
 
