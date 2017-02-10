@@ -42,8 +42,9 @@
 ARM_ARCH:=arm64
 ADDITIONAL_DEBS:="netbase,net-tools,ifupdown,iproute,openssh-server,ntp,ntpdate,\
 vim,less,sudo,locales,tasksel,ca-certificates,adduser,passwd,\
-avahi-daemon,avahi-discover,libnss-mdns,wpasupplicant,htop,\
-build-essential,autoconf,automake,libtool,debhelper,dh-autoreconf,fakeroot,pkg-config"
+avahi-daemon,avahi-discover,libnss-mdns,wpasupplicant,wireless-tools,iw,htop,\
+build-essential,autoconf,automake,libtool,debhelper,dh-autoreconf,fakeroot,pkg-config,\
+firmware-linux-free"
 
 DISTRO:=testing
 KERNEL_VERSION:=3.10.104
