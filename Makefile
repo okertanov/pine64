@@ -46,11 +46,13 @@ avahi-daemon,avahi-discover,libnss-mdns,wpasupplicant,htop,\
 build-essential,autoconf,automake,libtool,debhelper,dh-autoreconf,fakeroot,pkg-config"
 
 DISTRO:=testing
+KERNEL_VERSION:=3.10.104
 DISK_IMAGE_SIZE_GB:=2
 DISK_IMAGE_NAME:=pine64-disk-$(DISK_IMAGE_SIZE_GB)Gb.img
 
 USERNAME:=pine
 PASSWD:=pine
+USER_GROUPS:=sudo,video
 
 all: tmp disk-image
 
@@ -106,10 +108,10 @@ define post-config-rootfs =
 sudo cp -r rootfs/* tmp/rmount/
 sudo tar jxf tmp/rmount/lib/modules.tbz2 -C tmp/rmount/lib/
 sudo rm -f tmp/rmount/lib/modules.tbz2
-sudo chroot tmp/rmount /usr/bin/qemu-aarch64-static /bin/sh -c "/sbin/depmod 3.10.104"
+sudo chroot tmp/rmount /usr/bin/qemu-aarch64-static /bin/sh -c "/sbin/depmod $(KERNEL_VERSION)"
 
 sudo chroot tmp/rmount /usr/bin/qemu-aarch64-static /bin/sh -c "/usr/sbin/groupadd $(USERNAME)"
-sudo chroot tmp/rmount /usr/bin/qemu-aarch64-static /bin/sh -c "/usr/sbin/useradd $(USERNAME) -s /bin/bash -m -g $(USERNAME) -G sudo,video"
+sudo chroot tmp/rmount /usr/bin/qemu-aarch64-static /bin/sh -c "/usr/sbin/useradd $(USERNAME) -s /bin/bash -m -g $(USERNAME) -G $(USER_GROUPS)"
 sudo chroot tmp/rmount /usr/bin/qemu-aarch64-static /bin/sh -c "/bin/echo "$(USERNAME):$(PASSWD)" | /usr/sbin/chpasswd"
 sudo chroot tmp/rmount /usr/bin/qemu-aarch64-static /bin/sh -c "/usr/bin/passwd -l root"
 
