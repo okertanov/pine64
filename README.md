@@ -43,7 +43,54 @@ Debug
 Host System setup
 -----------------
 
-    TBD
+    apt-get install sudo
+    usermod -G sudo okertanov
+
+    sudo apt-get update && sudo apt-get dist-upgrade
+    sudo apt-get install aptitude
+    sudo aptitude update && sudo aptitude dist-upgrade
+    sudo aptitude install -f
+    sudo aptitude clean
+    sudo aptitude autoclean
+
+    sudo aptitude install net-tools
+    sudo aptitude install vim-nox
+    sudo aptitude install build-essential
+    sudo aptitude install zsh
+    sudo aptitude install git-core
+    sudo aptitude install git-extras
+    sudo aptitude install git-svn
+    sudo aptitude install mc
+    sudo aptitude install util-linux
+    sudo aptitude install sfdisk
+    sudo aptitude install dosfstools
+    sudo aptitude install debootstrap
+    sudo apt-get install qemu qemu-user-static binfmt-support
+    sudo aptitude install gcc-aarch64-linux-gnu
+
+    sudo vim /etc/network/interfaces
+    sudo ifconfig
+
+    ssh-keygen -t dsa
+    ssh-keygen -t rsa
+
+    sudo vim /etc/environment
+    export LANGUAGE=en_US.UTF-8
+    export LANG=en_US.UTF-8
+    export LC_ALL=en_US.UTF-8
+    sudo locale-gen en_US.UTF-8
+    sudo dpkg-reconfigure locales
+
+    sudo vim /etc/shells
+    chsh -s /bin/zsh
+
+    sudo apt-get install avahi-daemon avahi-discover libnss-mdns
+    sudo cp /usr/share/doc/avahi-daemon/examples/ssh.service  /etc/avahi/services/
+    sudo cp /usr/share/doc/avahi-daemon/examples/sftp-ssh.service  /etc/avahi/services/
+
+    sudo vim /etc/default/grub
+    sudo update-grub
+
 
 Ideas
 -----
@@ -82,4 +129,3 @@ Links
 [https://www.plex.tv/](https://www.plex.tv/)  
 [https://www.hackster.io/](https://www.hackster.io/)  
 [https://github.com/alexa/alexa-avs-sample-app/blob/master/README.md](https://github.com/alexa/alexa-avs-sample-app/blob/master/README.md)  
-
