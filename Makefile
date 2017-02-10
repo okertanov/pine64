@@ -31,6 +31,11 @@
 ##
 
 ##
+## Cross:
+##    gcc-aarch64-linux-gnu
+##
+
+##
 ## ARM hosts: pine, cone, nootka
 ##
 
@@ -101,6 +106,7 @@ define post-config-rootfs =
 sudo cp -r rootfs/* tmp/rmount/
 sudo tar jxf tmp/rmount/lib/modules.tbz2 -C tmp/rmount/lib/
 sudo rm -f tmp/rmount/lib/modules.tbz2
+sudo chroot tmp/rmount /usr/bin/qemu-aarch64-static /bin/sh -c "/sbin/depmod 3.10.104"
 
 sudo chroot tmp/rmount /usr/bin/qemu-aarch64-static /bin/sh -c "/usr/sbin/groupadd $(USERNAME)"
 sudo chroot tmp/rmount /usr/bin/qemu-aarch64-static /bin/sh -c "/usr/sbin/useradd $(USERNAME) -s /bin/bash -m -g $(USERNAME) -G sudo,video"
