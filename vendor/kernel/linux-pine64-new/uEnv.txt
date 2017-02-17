@@ -1,4 +1,71 @@
+##
+## TTY opts
+##
 console=tty0 console=ttyS0,115200n8 no_console_suspend
+
+##
+## Kernel opts
+##
+# selinux=permissive
+# enforcing=0
+# optargs=no_console_suspend
+
+##
+## Boot opts
+##
 kernel_filename=pine64/Image
 initrd_filename=initrd.img
-ethaddr=ba:88:8e:64:aa:78
+
+##
+## HW params
+##
+# hardware=sun50iw1p1
+# ethaddr=ba:88:8e:64:aa:78
+
+##
+## LCD
+##
+# pine64_lcd=on
+
+##
+## Configure contiguous memory allocation
+## This maybe required to be enlarged for 4K displays
+##
+# cma=384M
+
+##
+## To change HDMI display mode, uncomment:
+##
+# disp_mode=480i
+# disp_mode=576i
+# disp_mode=480p
+# disp_mode=576p
+# disp_mode=720p50
+# disp_mode=720p60
+# disp_mode=1080i50
+# disp_mode=1080i60
+# disp_mode=1080p24
+# disp_mode=1080p50
+# disp_mode=1080p60
+# disp_mode=2160p30
+# disp_mode=2160p25
+# disp_mode=2160p24
+
+##
+## To enable DVI compatibilty, uncomment:
+##
+# disp_dvi_compat=on
+
+##
+## To enable CSI camera, uncomment:
+##
+# camera_type=s5k4ec
+# camera_type=ov5640
+
+##
+## Configure ethernet speed
+##
+# eth0_speed=auto
+# eth0_speed=1000
+# eth0_speed=100
+# eth0_speed=10
