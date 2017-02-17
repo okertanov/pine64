@@ -41,7 +41,7 @@
 
 ARM_ARCH:=arm64
 ADDITIONAL_DEBS:="netbase,net-tools,ifupdown,iproute,openssh-server,ntp,ntpdate,\
-vim,less,sudo,locales,tasksel,ca-certificates,adduser,passwd,\
+aptitude,vim,less,sudo,locales,tasksel,ca-certificates,adduser,passwd,\
 avahi-daemon,avahi-discover,libnss-mdns,wpasupplicant,wireless-tools,iw,htop,\
 build-essential,autoconf,automake,libtool,debhelper,dh-autoreconf,fakeroot,pkg-config,\
 firmware-linux-free"
@@ -68,8 +68,8 @@ disk-image: $(DISK_IMAGE_NAME)
 	printf "20M,64M,c\n65M,,L" | sudo sfdisk $@
 	sudo losetup --partscan --show --find $@
 	sudo mkfs.vfat /dev/loop0p1 -n "PINEBOOT"
-	sudo mkfs.ext4 -F -b 4096 -E stride=2,stripe-width=1024 -m0 -L"pineroot" /dev/loop0p2
-	#sudo mkfs.ext3 -m0 -L"pineroot" /dev/loop0p2
+	#sudo mkfs.ext4 -F -b 4096 -E stride=2,stripe-width=1024 -m0 -L"pineroot" /dev/loop0p2
+	sudo mkfs.ext3 -m0 -L"pineroot" /dev/loop0p2
 	sudo fsck /dev/loop0p2
 	sync
 	sudo mount /dev/loop0p1 tmp/bmount
